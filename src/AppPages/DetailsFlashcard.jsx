@@ -18,6 +18,8 @@ function DetailsFlashcard() {
     return state.cards.cardValues;
   });
 
+  console.log("cardDetails", cardDetails)
+
   const [curentCard, setCurentCard] = useState({});
   const [insideCard, setInsideCard] = useState({});
 
@@ -30,7 +32,7 @@ function DetailsFlashcard() {
 
   useEffect(() => {
     if (!groupId || !cardDetails) return;
-    const temp = cardDetails.filter((c) => c.card.groupId === groupId);
+    const temp = cardDetails.filter((item) => item.card.groupId === groupId);
     setCurentCard(temp[0].card);
   }, [groupId, cardDetails]);
 
@@ -47,7 +49,7 @@ function DetailsFlashcard() {
     setUrl(`${document.location.href}`);
   };
 
-  console.log("url is:", url);
+  // console.log("url is:", url);
 
   return (
     <div className="px-[180px]">
@@ -68,16 +70,16 @@ function DetailsFlashcard() {
           <hr className="h-[3px] bg-stone-600 w-full" />
           <div className="mt-1 mb-1 space-y-1">
             {curentCard.form2 &&
-              curentCard.form2.map((item) => (
+              curentCard.form2.map((item,index) => (
                 <div
                   key={item.formId}
                   className={`flex justify-center items-center mt text-slate-600 font-medium rounded-md hover:bg-slate-300 cursor-pointer ${
                     item.formId === insideCard.formId &&
-                    "!text-red-500 !font-bold"
+                    "!text-red-400 !font-bold"
                   }`}
                   onClick={() => viewCard(item.formId)}
                 >
-                  {item.enterTerm}
+                  {index + 1}.&nbsp;{item.enterTerm}
                 </div>
               ))}
           </div>
