@@ -17,11 +17,11 @@ import {
 } from "react-share";
 
 const Modal = ({ isVisible, onClose, share }) => {
-  if (!isVisible) return null;
-
   const handleClose = (e) => {
     if (e.target.id === "closeit") onClose();
   };
+
+  if (!isVisible) return null;
 
   const facebookUrl = "https://www.facebook.com/";
   const whatsAppUrl = "https://web.whatsapp.com/";
@@ -31,17 +31,16 @@ const Modal = ({ isVisible, onClose, share }) => {
 
   const [inputValue, setInputValue] = useState(`Link: ${share}`);
 
-  const [linkCopied, setLinkCopied] = useState(false)
+  const [linkCopied, setLinkCopied] = useState(false);
 
-  const handleCopy = ()=>{
-    setLinkCopied(true)
-  }
-  useEffect(()=>{
-    setTimeout(()=> {
-      if (linkCopied)
-      setLinkCopied(false)
-    }, 3000)
-  }, [linkCopied])
+  const handleCopy = () => {
+    setLinkCopied(true);
+  };
+  useEffect(() => {
+    setTimeout(() => {
+      if (linkCopied) setLinkCopied(false);
+    }, 3000);
+  }, [linkCopied]);
 
   return (
     <div
@@ -53,51 +52,49 @@ const Modal = ({ isVisible, onClose, share }) => {
         <button className="place-self-end" type="button" onClick={onClose}>
           <CancelIcon />
         </button>
-       <div className="space-y-4 px-6">
-       <p className="font-semibold text-lg">Share :</p>
-        <div className="pt-2 space-x-4">
-          <input 
-            type="text" 
-            value={inputValue}
-            onChange={(e)=> setInputValue(e.target.value)}
-            className="ring-1 ring-blue-400 rounded-[4px] h-8 w-[280px] px-2 "/>
+        <div className="px-6 space-y-4">
+          <p className="text-lg font-semibold">Share :</p>
+          <div className="pt-2 space-x-4">
+            <input
+              type="text"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              className="ring-1 ring-blue-400 rounded-[4px] h-8 w-[280px] px-2 "
+            />
 
-          <button onClick={handleCopy}>
-          <CopyToClipboard text={inputValue}>
-            <ContentCopyIcon/>
-          </CopyToClipboard>
-          </button>
+            <button onClick={handleCopy}>
+              <CopyToClipboard text={inputValue}>
+                <ContentCopyIcon />
+              </CopyToClipboard>
+            </button>
 
-          <button>
-            <ShareIcon/>
-          </button>
+            <button>
+              <ShareIcon />
+            </button>
+          </div>
+          <div className="p-0 text-red-600">{linkCopied && "Copied!"}</div>
+          <div className="flex justify-center gap-[50px] pt-4">
+            <FacebookShareButton url={facebookUrl}>
+              <FacebookIcon className="rounded-full " size={36} />
+            </FacebookShareButton>
 
+            <WhatsappShareButton url={whatsAppUrl}>
+              <WhatsappIcon className="rounded-full " size={36} />
+            </WhatsappShareButton>
+
+            <TwitterShareButton url={twitterUrl}>
+              <TwitterIcon className="rounded-full " size={36} />
+            </TwitterShareButton>
+
+            <EmailShareButton url={emailUrl}>
+              <EmailIcon className="rounded-full " size={36} />
+            </EmailShareButton>
+
+            <LinkedinShareButton url={linkdinUrl}>
+              <LinkedinIcon className="rounded-full " size={36} />
+            </LinkedinShareButton>
+          </div>
         </div>
-        <div className="text-red-600 p-0">
-          {linkCopied && "Copied!"}
-        </div>
-        <div className="flex justify-center gap-[50px] pt-4">
-          <FacebookShareButton url={facebookUrl}>
-            <FacebookIcon className="rounded-full " size={36} />
-          </FacebookShareButton>
-
-          <WhatsappShareButton url={whatsAppUrl}>
-            <WhatsappIcon className="rounded-full " size={36} />
-          </WhatsappShareButton>
-
-          <TwitterShareButton url={twitterUrl}>
-            <TwitterIcon className="rounded-full " size={36} />
-          </TwitterShareButton>
-
-          <EmailShareButton url={emailUrl}>
-            <EmailIcon className="rounded-full " size={36} />
-          </EmailShareButton>
-
-          <LinkedinShareButton url={linkdinUrl}>
-            <LinkedinIcon className="rounded-full " size={36} />
-          </LinkedinShareButton>
-        </div>
-       </div>
       </div>
     </div>
   );

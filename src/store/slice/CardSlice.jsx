@@ -17,7 +17,7 @@ const CardSlice = createSlice({
     },
     delCardValue(state, action) {
       //console.log("Delete comand" + action.payload)
-      state.cardValues.splice(action.payload, 1);
+      state.cardValues.splice({card:action.payload}, 1);
       localStorage.setItem("cardValues", JSON.stringify(state.cardValues));
     },
   },
